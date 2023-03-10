@@ -6,7 +6,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { LineChart } from "react-native-chart-kit";
 import { Dimensions, ScrollView, SafeAreaView } from "react-native";
 import { TouchableOpacity, useNavigation } from "@react-navigation/native";
-
+import { COLORS, FONTS, SIZES, icons, } from './design.js';
 function HomeScreen({ navigation }) {
 
   // const navigateToSecondPage=()=>{
@@ -24,37 +24,19 @@ function HomeScreen({ navigation }) {
       <SafeAreaView>
         <ScrollView>
           
-            <Text
-              style={{
-                fontSize: 28,
-                position: "relative",
-                marginTop: 35,
-                marginLeft: 50,
-                marginBottom: 30
-              }}
-            >
-              Overview
-            </Text>
-            <Text
-              style={{
-                fontSize: 28,
-                position: "relative",
-                margin: 0,
-                marginLeft: 65
-              }}
-            >
-              This Month
-            </Text>
-            <Text
-              style={{
-                fontSize: 28,
-                position: "relative",
-                margin: 2,
-                marginLeft: 65
-              }}
-            >
-              ₱ 6,000
-            </Text>
+        <View style={{ paddingHorizontal: SIZES.padding, paddingVertical: SIZES.padding, backgroundColor: COLORS.white }}>
+                <View>
+                    <Text style={{ color: COLORS.primary, ...FONTS.h2 }}>Overview</Text>
+                </View>
+
+        
+                </View>   
+                <View style={{ paddingHorizontal: SIZES.padding}}>
+                <View>
+                  <Text style={{ ...FONTS.h3, color: COLORS.darkgray }}>This Month</Text>
+                    <Text style={{ color: COLORS.primary, ...FONTS.h3 }}>₱ 6,000</Text>
+                </View>
+                </View> 
             <LineChart
               data={{
                 labels: [
@@ -114,8 +96,8 @@ function HomeScreen({ navigation }) {
               }}
               style={{
                 backgroundColor: "gray",
-                borderWidth: 1,
-                borderRadius: 15,
+                borderWidth: 0,
+                borderRadius: 8,
                 elevation: 6,
                 marginTop: 6,
               }}

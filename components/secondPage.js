@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
 import {
     SafeAreaView,
     StyleSheet,
@@ -234,17 +234,76 @@ const secondPage = () => {
     const [viewMode, setViewMode] = React.useState("chart")
     const [selectedCategory, setSelectedCategory] = React.useState(null)
     const [showMoreToggle, setShowMoreToggle] = React.useState(false)
-
-    function renderButton(){
-        return (
-            <View style={styles.container}>
-              <TouchableOpacity style={styles.button}>
-                <MaterialIcons name="add" size={24} color="white" />
-              </TouchableOpacity>
-            </View>
-          );
+    const [isExpanded, setIsExpanded] = useState(false)
+    const [showButtons, setShowButtons] = useState(false)
+    const handlePress = () => {
+    setIsExpanded(!isExpanded);
+    setShowButtons(!showButtons);
     }
-    
+
+    const animation = new Animated.Value(0);
+
+    const button1Style = {
+        transform: [
+          {
+            translateY: animation.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, -50],
+            }),
+          },
+        ],
+      };
+      
+      const button2Style = {
+        transform: [
+          {
+            translateY: animation.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, -100],
+            }),
+          },
+        ],
+      };
+      
+      const button3Style = {
+        transform: [
+          {
+            translateY: animation.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, -150],
+            }),
+          },
+        ],
+      };
+      
+        function renderButton(){
+            return (
+                <View style={styles.container}>
+        <TouchableOpacity style={styles.button} onPress={handlePress}>
+        {showButtons ? (
+          <MaterialIcons name="close" size={24} color="white" />
+        ) : (
+          <MaterialIcons name="add" size={24} color="white" />
+        )}
+        </TouchableOpacity>
+        
+        {isExpanded && (
+        <View style={styles.expandedContainer}>
+            <Animated.View style={[styles.button1Style, button1Style]}>
+            <MaterialIcons name="category" size={24} color="white" />
+            </Animated.View>
+            <Animated.View style={[styles.button2Style, button2Style]}>
+            <MaterialIcons name="shopping-cart" size={24} color="white" />
+            </Animated.View>
+            <Animated.View style={[styles.button3Style, button3Style]}>
+            <MaterialIcons name="add" size={24} color="white" />
+            </Animated.View>
+        </View>
+        )}
+    </View>
+            );
+        }
+        
 
     function renderHeader() {
         return (
@@ -763,6 +822,33 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         elevation: 4,
       },
+      button1Style:{
+        backgroundColor: 'blue',
+        borderRadius: 50,
+        width: 64,
+        height: 64,
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 4,
+      },
+      button2Style:{
+        backgroundColor: 'green',
+        borderRadius: 50,
+        width: 64,
+        height: 64,
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 4,
+      },
+      button3Style:{
+        backgroundColor: 'orange',
+        borderRadius: 50,
+        width: 64,
+        height: 64,
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 4,
+      }
 })
 
 export default secondPage;
